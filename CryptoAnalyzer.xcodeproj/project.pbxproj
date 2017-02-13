@@ -12,6 +12,7 @@
 		0AFC294A1E48C4BE00600949 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0AFC29491E48C4BE00600949 /* Assets.xcassets */; };
 		0AFC294D1E48C4BE00600949 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0AFC294B1E48C4BE00600949 /* Main.storyboard */; };
 		0AFC29581E48C4BE00600949 /* CryptoAnalyzerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFC29571E48C4BE00600949 /* CryptoAnalyzerTests.swift */; };
+		0AFC89351E5174FA00CCA5FD /* TableViewControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFC89341E5174FA00CCA5FD /* TableViewControllerExtensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +35,7 @@
 		0AFC29531E48C4BE00600949 /* CryptoAnalyzerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CryptoAnalyzerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0AFC29571E48C4BE00600949 /* CryptoAnalyzerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoAnalyzerTests.swift; sourceTree = "<group>"; };
 		0AFC29591E48C4BE00600949 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0AFC89341E5174FA00CCA5FD /* TableViewControllerExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewControllerExtensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +79,7 @@
 			children = (
 				0AFC29451E48C4BD00600949 /* AppDelegate.swift */,
 				0AFC29471E48C4BE00600949 /* ViewController.swift */,
+				0AFC89341E5174FA00CCA5FD /* TableViewControllerExtensions.swift */,
 				0AFC29491E48C4BE00600949 /* Assets.xcassets */,
 				0AFC294B1E48C4BE00600949 /* Main.storyboard */,
 				0AFC294E1E48C4BE00600949 /* Info.plist */,
@@ -196,6 +199,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0AFC29481E48C4BE00600949 /* ViewController.swift in Sources */,
+				0AFC89351E5174FA00CCA5FD /* TableViewControllerExtensions.swift in Sources */,
 				0AFC29461E48C4BD00600949 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -395,6 +399,7 @@
 				0AFC295E1E48C4BE00600949 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		0AFC295F1E48C4BE00600949 /* Build configuration list for PBXNativeTarget "CryptoAnalyzerTests" */ = {
 			isa = XCConfigurationList;
@@ -403,6 +408,7 @@
 				0AFC29611E48C4BE00600949 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
