@@ -29,7 +29,7 @@ class ViewController: NSViewController, NSTextDelegate,
 		// Do any additional setup after loading the view.
 		textToAnalyzeField.delegate = self
 		tableViewKeyCollection = ["Indice Coincidencia", "Kasinsky", "Babage"]
-		tableViewValueCollection = ["FakeIndex1234", "Kasinsky1234", "Babage1234"]
+		tableViewValueCollection = ["", "", ""]
 		keyValueTable.delegate = self
 	}
 
@@ -45,9 +45,9 @@ class ViewController: NSViewController, NSTextDelegate,
 		let numeroItems = Double(textToAnalyzeField.stringValue.characters.count)
 		let symbols = textField.stringValue.lowercased().characters.map{String($0)}
 		
-		let rawResults = calculateFrequency(of: symbols)
-		let frequencyResults = rawResults.map{(simbolo, frecuencia) in return (simbolo, (Double(frecuencia)/numeroItems*100))}
-		let formatedString = formatFrequency(results: frequencyResults)
+		let rawResults = calculateNgramFrequency(of: symbols, withNgramLength: 1)
+		let frequencyResults = rawResults.map{(simbolo, frecuencia) in return (simbolo, (frecuencia/numeroItems*100))}
+		let formatedString = formatFrequency(results: frequencyResults, taking: frequencyResults.count)
 		self.ResultsLabel.stringValue = formatedString
 		
 		let IC = calculateCoincidenceIndex(of: rawResults, with: symbols.count)
@@ -65,24 +65,9 @@ class ViewController: NSViewController, NSTextDelegate,
 		
 	}
 	
-	
-	func calculateFrequency(of symbols: [String]) -> [(String, Int)] {
+	func calculateNgramFrequency(of symbols: [String], withNgramLength: Int) -> [(String, Double)] {
 		
-		var results =  [(String, Int)]()
-		for letra in symbols {
-			if let indiceLetra = results.index(where: {(simbolo, frecuencia) in simbolo == letra}){
-				let elemento = results.remove(at: indiceLetra)
-				results.append((elemento.0, elemento.1 + 1 ))
-			}else{
-				results.append((letra, 1))
-			}
-		}
-		return results
-	}
-	
-	func calculateNgramFrequency(of symbols: [String], withNgramLength: Int) -> [(String, Int)] {
-		
-		var results =  [(String, Int)]()
+		var results =  [(String, Double)]()
 		let conteo: Int = symbols.count - withNgramLength
 		var index = 0
 		
@@ -111,18 +96,7 @@ class ViewController: NSViewController, NSTextDelegate,
 		return results
 	}
 	
-	func formatFrequency(results: [(String, Double)]) -> String {
-		var parcialResult : String = ""
-		
-		
-		for (letra, frecuencia) in results.sorted(by: {$0.1 > $1.1})
-		{
-			parcialResult += "Símbolo: \(letra) | Frecuencia: \(frecuencia) \n"
-		}
-		return parcialResult
-	}
-	
-	func formatFrequency(results: [(String, Int)], taking maxNumberOfItems: Int) -> String {
+	func formatFrequency(results: [(String, Double)], taking maxNumberOfItems: Int) -> String {
 		var parcialResult : String = ""
 		
 		var numeroItemsProcesados = 0
@@ -137,13 +111,13 @@ class ViewController: NSViewController, NSTextDelegate,
 		return parcialResult
 	}
 	
-	func calculateCoincidenceIndex(of frequency: [(String, Int)], with textLeght: Int ) -> Double {
+	func calculateCoincidenceIndex(of frequency: [(String, Double)], with textLeght: Int ) -> Double {
 		
-		var acumular: Int = 0
+		var acumular: Double = 0
 		for (_, frecuencia) in frequency {
 			acumular += frecuencia*(frecuencia-1)
 		
 		}
-		return Double(acumular)/Double(textLeght*(textLeght-1))
+		return acumular/Double(textLeght*(textLeght-1))
 	}
 }
