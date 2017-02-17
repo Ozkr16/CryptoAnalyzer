@@ -43,10 +43,10 @@ class ViewController: NSViewController, NSTextDelegate,
 		let textField = notification.object as! NSTextField
 		
 		let numeroItems = Double(textToAnalyzeField.stringValue.characters.count)
-		let symbols = textField.stringValue.lowercased().characters.map{String($0)}
+		let symbols = textField.stringValue.lowercased().replacingOccurrences(of: " ", with: "").characters.map{String($0)}
 		
 		let rawResults = calculateNgramFrequency(of: symbols, withNgramLength: 1)
-		let frequencyResults = rawResults.map{(simbolo, frecuencia) in return (simbolo, (frecuencia/numeroItems*100))}
+		let frequencyResults = rawResults.map{(simbolo, frecuencia) in return (simbolo, frecuencia/numeroItems*100)}
 		let formatedString = formatFrequency(results: frequencyResults, taking: frequencyResults.count)
 		self.ResultsLabel.stringValue = formatedString
 		
@@ -71,7 +71,7 @@ class ViewController: NSViewController, NSTextDelegate,
 		let conteo: Int = symbols.count - withNgramLength
 		var index = 0
 		
-		while(index < conteo){
+		while(index <= conteo){
 			var index2 = 0
 			var nGramaBuscado = ""
 			while(index2 < withNgramLength){
@@ -102,7 +102,9 @@ class ViewController: NSViewController, NSTextDelegate,
 		var numeroItemsProcesados = 0
 		for (letra, frecuencia) in results.sorted(by: {$0.1 > $1.1})
 		{
-			parcialResult += "Símbolo: \(letra) | Frecuencia: \((frecuencia) ) \n"
+
+			
+			parcialResult += "\(letra) : \(frecuencia)\n"
 			numeroItemsProcesados += 1
 			if numeroItemsProcesados >= maxNumberOfItems {
 				break
