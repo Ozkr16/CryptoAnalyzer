@@ -18,6 +18,7 @@ class ViewController: NSViewController, NSTextDelegate,
 	@IBOutlet weak var keyValueTable: NSTableView!
 	@IBOutlet weak var keyColumn: NSTableColumn!
 	@IBOutlet weak var valueColumn: NSTableColumn!
+	@IBOutlet weak var subtextsLabel: NSTextField!
 	
 	var tableViewKeyCollection : [String] = []
 	var tableViewValueCollection : [String] = []
@@ -63,6 +64,23 @@ class ViewController: NSViewController, NSTextDelegate,
 		self.bigramasLabel.stringValue = "Los 20 Bigramas Más Frecuentes: \n\(formatedBigrams)"
 		self.trigramasLabel.stringValue = "Los 20 Trigramas Más Frecuentes: \n\(formatedTrigrams)"
 		
+		let subtextos = divideTextInSubtext(texto: textField.stringValue, numeroTextos: 5)
+		let formattedSubtexts = formatSubtexts(subtextos: subtextos)
+		self.subtextsLabel.stringValue = formattedSubtexts
+		
+		for tN in subtextos {
+			let letrasSubN = tN.lowercased().replacingOccurrences(of: " ", with: "").characters.map{String($0)}
+			let freqSubN = calculateNgramFrequency(of: letrasSubN, withNgramLength: 1).sorted(by: {$0.1 > $1.1})
+			
+			//Por hacer: revisar cada uno de los subtextos, y encontrar todos los indices en que aparece la letra
+			// dada por el for. Con la lista de indices, buscar el indice anterior y posterior en los subtextos anterior y posterior
+			//respectivamente. Hacer append de esos letras en un string, por izquierda y por derecha.
+			
+			
+			//for letra in freqSubN {
+			//	tN.rangeOfString(
+			//}
+		}
 	}
 	
 	func calculateNgramFrequency(of symbols: [String], withNgramLength: Int) -> [(String, Double)] {
@@ -122,4 +140,33 @@ class ViewController: NSViewController, NSTextDelegate,
 		}
 		return acumular/Double(textLeght*(textLeght-1))
 	}
+	
+	func divideTextInSubtext(texto: String, numeroTextos: Int) -> [String]{
+		let caracteres = texto.lowercased().replacingOccurrences(of: " ", with: "").characters.map{String($0)}
+		var currentT = 0;
+		var textos = [String](repeating: "", count: numeroTextos)
+		
+		for letra in caracteres {
+			
+			textos[currentT] += letra
+			currentT += 1
+			
+			if currentT % numeroTextos == 0
+			{
+				currentT = 0
+			}
+		}
+		return textos
+	}
+	
+	func formatSubtexts(subtextos : [String]) -> String {
+		var formateado: String = ""
+		var contador = 0
+		for sub in subtextos {
+			formateado += "T\(contador): \(sub) \n"
+			contador += 1
+		}
+		return formateado
+	}
+
 }
