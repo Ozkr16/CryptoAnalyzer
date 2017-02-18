@@ -474,11 +474,11 @@
                                 </textFieldCell>
                             </textField>
                             <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="VTi-ei-aRm">
-                                <rect key="frame" x="20" y="20" width="440" height="425"/>
+                                <rect key="frame" x="20" y="20" width="120" height="425"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="425" id="FRk-9t-aXc"/>
                                 </constraints>
-                                <textFieldCell key="cell" selectable="YES" sendsActionOnEndEditing="YES" borderStyle="border" id="Nqx-3H-MLf">
+                                <textFieldCell key="cell" selectable="YES" sendsActionOnEndEditing="YES" borderStyle="border" title="Frecuencia General" id="Nqx-3H-MLf">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -493,8 +493,8 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K0x-cA-rpt">
-                                <rect key="frame" x="239" y="453" width="223" height="17"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Oscar Gutiérrez Carval - CENFOTEX" id="XMd-jq-gYs">
+                                <rect key="frame" x="229" y="453" width="233" height="17"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Oscar Gutiérrez Carvajal - CENFOTEX" id="XMd-jq-gYs">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -514,7 +514,7 @@
                                     <constraint firstAttribute="height" constant="648" id="Xq6-v1-ZTZ"/>
                                     <constraint firstAttribute="width" constant="205" id="YwF-Zh-Iyf"/>
                                 </constraints>
-                                <textFieldCell key="cell" selectable="YES" sendsActionOnEndEditing="YES" borderStyle="border" id="0sW-ur-HMj">
+                                <textFieldCell key="cell" selectable="YES" sendsActionOnEndEditing="YES" borderStyle="border" title="Trigramas" id="0sW-ur-HMj">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -525,7 +525,7 @@
                                 <constraints>
                                     <constraint firstAttribute="width" constant="205" id="pUA-VE-5gK"/>
                                 </constraints>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" borderStyle="border" id="Ae0-Ni-oXx">
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" borderStyle="border" title="Bigramas" id="Ae0-Ni-oXx">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -646,7 +646,7 @@
                                         </scrollView>
                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Znn-fx-aSH">
                                             <rect key="frame" x="20" y="0.0" width="318" height="414"/>
-                                            <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" borderStyle="border" title="Subtextos" id="fnG-nr-n7U">
+                                            <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" borderStyle="border" title="Arboles Subtextos" id="fnG-nr-n7U">
                                                 <font key="font" metaFont="system"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -665,13 +665,23 @@
                                     </constraints>
                                 </view>
                             </box>
+                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Z7k-Tc-wsp">
+                                <rect key="frame" x="148" y="20" width="314" height="424"/>
+                                <textFieldCell key="cell" sendsActionOnEndEditing="YES" borderStyle="border" title="Subtextos" id="Btc-dK-M6V">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
                         </subviews>
                         <constraints>
                             <constraint firstItem="K93-hm-GEP" firstAttribute="leading" secondItem="bhM-a9-0OU" secondAttribute="trailing" constant="8" symbolic="YES" id="18f-i1-GPQ"/>
                             <constraint firstItem="8K5-cx-ib2" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="72" id="1GG-Fx-l1n"/>
                             <constraint firstItem="1fV-Zi-wLX" firstAttribute="leading" secondItem="Zea-Ev-OUw" secondAttribute="trailing" constant="13" id="2JK-Is-Pmf"/>
                             <constraint firstItem="K0x-cA-rpt" firstAttribute="trailing" secondItem="hzO-Aq-qnz" secondAttribute="trailing" id="4vA-Jn-rEf"/>
+                            <constraint firstItem="Z7k-Tc-wsp" firstAttribute="centerY" secondItem="VTi-ei-aRm" secondAttribute="centerY" id="546-ZW-t3y"/>
                             <constraint firstItem="Zea-Ev-OUw" firstAttribute="trailing" secondItem="hzO-Aq-qnz" secondAttribute="trailing" id="5y4-Sc-Jio"/>
+                            <constraint firstItem="Z7k-Tc-wsp" firstAttribute="baseline" secondItem="VTi-ei-aRm" secondAttribute="baseline" id="Atg-qq-oyi"/>
                             <constraint firstItem="bhM-a9-0OU" firstAttribute="baseline" secondItem="K93-hm-GEP" secondAttribute="baseline" id="Bkh-7x-zpY"/>
                             <constraint firstItem="8K5-cx-ib2" firstAttribute="leading" secondItem="K93-hm-GEP" secondAttribute="trailing" constant="8" id="FAd-j5-8yc"/>
                             <constraint firstItem="VTi-ei-aRm" firstAttribute="leading" secondItem="0eV-QV-SqC" secondAttribute="leading" id="Hqe-WG-kNs"/>
@@ -680,14 +690,16 @@
                             <constraint firstItem="VTi-ei-aRm" firstAttribute="top" secondItem="AcY-8w-Zw4" secondAttribute="bottom" constant="8" symbolic="YES" id="LPm-4Z-I1J"/>
                             <constraint firstItem="K93-hm-GEP" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="72" id="O9R-Wp-Vca"/>
                             <constraint firstItem="K0x-cA-rpt" firstAttribute="top" secondItem="hzO-Aq-qnz" secondAttribute="bottom" constant="8" id="PDx-0d-Moa"/>
+                            <constraint firstItem="bhM-a9-0OU" firstAttribute="leading" secondItem="Z7k-Tc-wsp" secondAttribute="trailing" constant="15" id="PEy-Cj-2dN"/>
                             <constraint firstAttribute="bottom" secondItem="8K5-cx-ib2" secondAttribute="bottom" constant="18" id="PLQ-ma-75R"/>
                             <constraint firstItem="VTi-ei-aRm" firstAttribute="top" secondItem="K0x-cA-rpt" secondAttribute="bottom" constant="8" symbolic="YES" id="Uqm-kd-vEw"/>
                             <constraint firstItem="hzO-Aq-qnz" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="aFd-2T-qXa"/>
                             <constraint firstAttribute="trailing" secondItem="8K5-cx-ib2" secondAttribute="trailing" constant="20" id="ais-v3-Www"/>
                             <constraint firstItem="VTi-ei-aRm" firstAttribute="leading" secondItem="hzO-Aq-qnz" secondAttribute="leading" id="c3D-fo-VWF"/>
                             <constraint firstItem="hzO-Aq-qnz" firstAttribute="top" secondItem="Zea-Ev-OUw" secondAttribute="bottom" constant="8" id="fA5-LF-vAP"/>
-                            <constraint firstItem="Zea-Ev-OUw" firstAttribute="trailing" secondItem="VTi-ei-aRm" secondAttribute="trailing" id="kIo-u8-reN"/>
+                            <constraint firstItem="Zea-Ev-OUw" firstAttribute="trailing" secondItem="VTi-ei-aRm" secondAttribute="trailing" constant="320" id="kIo-u8-reN"/>
                             <constraint firstItem="Zea-Ev-OUw" firstAttribute="top" secondItem="0eV-QV-SqC" secondAttribute="bottom" constant="8" symbolic="YES" id="kby-LJ-eKN"/>
+                            <constraint firstItem="Z7k-Tc-wsp" firstAttribute="leading" secondItem="VTi-ei-aRm" secondAttribute="trailing" constant="8" symbolic="YES" id="mDZ-gZ-cM3"/>
                             <constraint firstItem="bhM-a9-0OU" firstAttribute="leading" secondItem="K0x-cA-rpt" secondAttribute="trailing" constant="17" id="np7-u9-AKk"/>
                             <constraint firstItem="bhM-a9-0OU" firstAttribute="baseline" secondItem="VTi-ei-aRm" secondAttribute="baseline" id="qMJ-Y7-oyB"/>
                             <constraint firstItem="VTi-ei-aRm" firstAttribute="leading" secondItem="AcY-8w-Zw4" secondAttribute="leading" id="smV-xk-Efg"/>
@@ -697,10 +709,11 @@
                     </view>
                     <connections>
                         <outlet property="ResultsLabel" destination="VTi-ei-aRm" id="t3k-tz-3h6"/>
+                        <outlet property="arbolesLabel" destination="Znn-fx-aSH" id="WWz-1H-2e6"/>
                         <outlet property="bigramasLabel" destination="Ae0-Ni-oXx" id="1Pb-tN-A8c"/>
                         <outlet property="keyColumn" destination="bsy-L0-7UD" id="d6f-7J-sa2"/>
                         <outlet property="keyValueTable" destination="yx7-xV-5hv" id="jHd-So-Gyo"/>
-                        <outlet property="subtextsLabel" destination="Znn-fx-aSH" id="Yxh-qB-3SI"/>
+                        <outlet property="subtextsLabel" destination="Z7k-Tc-wsp" id="8Ha-Cu-1WB"/>
                         <outlet property="textToAnalyzeField" destination="hzO-Aq-qnz" id="CMf-XX-ObL"/>
                         <outlet property="trigramasLabel" destination="K93-hm-GEP" id="Tq0-J5-GLD"/>
                         <outlet property="valueColumn" destination="rYp-sf-OZf" id="t31-y0-H0r"/>

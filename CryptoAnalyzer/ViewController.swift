@@ -9,8 +9,8 @@
 import Cocoa
 
 class ViewController: NSViewController, NSTextDelegate,
-					  NSTextFieldDelegate {
-
+NSTextFieldDelegate {
+	
 	@IBOutlet weak var textToAnalyzeField: NSTextField!
 	@IBOutlet weak var ResultsLabel: NSTextField!
 	@IBOutlet weak var bigramasLabel: NSTextFieldCell!
@@ -19,6 +19,8 @@ class ViewController: NSViewController, NSTextDelegate,
 	@IBOutlet weak var keyColumn: NSTableColumn!
 	@IBOutlet weak var valueColumn: NSTableColumn!
 	@IBOutlet weak var subtextsLabel: NSTextField!
+	@IBOutlet weak var arbolesLabel: NSTextField!
+	
 	
 	var tableViewKeyCollection : [String] = []
 	var tableViewValueCollection : [String] = []
@@ -33,21 +35,21 @@ class ViewController: NSViewController, NSTextDelegate,
 		tableViewValueCollection = ["", "", ""]
 		keyValueTable.delegate = self
 	}
-
+	
 	override var representedObject: Any? {
 		didSet {
-		// Update the view, if already loaded.
+			// Update the view, if already loaded.
 		}
 	}
-
+	
 	override func controlTextDidChange(_ notification: Notification) {
 		let textField = notification.object as! NSTextField
 		
-		let numeroItems = Double(textToAnalyzeField.stringValue.characters.count)
+		//let numeroItems = Double(textToAnalyzeField.stringValue.characters.count)
 		let symbols = textField.stringValue.lowercased().replacingOccurrences(of: " ", with: "").characters.map{String($0)}
 		
 		let rawResults = calculateNgramFrequency(of: symbols, withNgramLength: 1)
-		let frequencyResults = rawResults.map{(simbolo, frecuencia) in return (simbolo, frecuencia/numeroItems*100)}
+		let frequencyResults = rawResults.map{(simbolo, frecuencia) in return (simbolo, frecuencia/*/numeroItems*100*/)}
 		let formatedString = formatFrequency(results: frequencyResults, taking: frequencyResults.count)
 		self.ResultsLabel.stringValue = formatedString
 		
@@ -68,19 +70,8 @@ class ViewController: NSViewController, NSTextDelegate,
 		let formattedSubtexts = formatSubtexts(subtextos: subtextos)
 		self.subtextsLabel.stringValue = formattedSubtexts
 		
-		for tN in subtextos {
-			let letrasSubN = tN.lowercased().replacingOccurrences(of: " ", with: "").characters.map{String($0)}
-			let freqSubN = calculateNgramFrequency(of: letrasSubN, withNgramLength: 1).sorted(by: {$0.1 > $1.1})
-			
-			//Por hacer: revisar cada uno de los subtextos, y encontrar todos los indices en que aparece la letra
-			// dada por el for. Con la lista de indices, buscar el indice anterior y posterior en los subtextos anterior y posterior
-			//respectivamente. Hacer append de esos letras en un string, por izquierda y por derecha.
-			
-			
-			//for letra in freqSubN {
-			//	tN.rangeOfString(
-			//}
-		}
+		let frequencyTrees =  produceFrequencyTreesFor(subtexts: subtextos)
+		self.arbolesLabel.stringValue = frequencyTrees
 	}
 	
 	func calculateNgramFrequency(of symbols: [String], withNgramLength: Int) -> [(String, Double)] {
@@ -106,7 +97,7 @@ class ViewController: NSViewController, NSTextDelegate,
 			}
 			
 			index += 1
-		
+			
 		}
 		
 		results.sort(by: {$0.1 > $1.1})
@@ -120,7 +111,7 @@ class ViewController: NSViewController, NSTextDelegate,
 		var numeroItemsProcesados = 0
 		for (letra, frecuencia) in results.sorted(by: {$0.1 > $1.1})
 		{
-
+			
 			
 			parcialResult += "\(letra) : \(frecuencia)\n"
 			numeroItemsProcesados += 1
@@ -136,7 +127,7 @@ class ViewController: NSViewController, NSTextDelegate,
 		var acumular: Double = 0
 		for (_, frecuencia) in frequency {
 			acumular += frecuencia*(frecuencia-1)
-		
+			
 		}
 		return acumular/Double(textLeght*(textLeght-1))
 	}
@@ -163,10 +154,67 @@ class ViewController: NSViewController, NSTextDelegate,
 		var formateado: String = ""
 		var contador = 0
 		for sub in subtextos {
-			formateado += "T\(contador): \(sub) \n"
+			formateado += "T\(contador): \n\(sub) \n"
 			contador += 1
 		}
 		return formateado
 	}
-
+	
+	func produceFrequencyTreesFor(subtexts: [String]) -> String {
+		var currentTextIndex = 0;
+		var longestTextIndex = 0
+		var normalizedSubTexts = [[String]](repeating: [""], count: subtexts.count)
+		for tN in subtexts {
+			normalizedSubTexts[currentTextIndex] = tN.lowercased().replacingOccurrences(of: " ", with: "").characters.map{String($0)};
+			if(tN.characters.count >= subtexts[longestTextIndex].characters.count){
+				longestTextIndex = currentTextIndex
+			}
+			currentTextIndex += 1
+		}
+		
+		var arbolesTodosLosTextos = ""
+		currentTextIndex = 0
+		for tN in subtexts {
+			let freqSubN = calculateNgramFrequency(of: normalizedSubTexts[currentTextIndex], withNgramLength: 1).sorted(by: {$0.1 > $1.1})
+			var arbolSubtextoCompleto = ""
+			
+			for (letra, _) in freqSubN {
+				let indexesOfLetra = tN.findIndexesOfAllOccurrences(of: letra)
+				var ramaArbolPorLetra = "-\(letra)-"
+				
+				for index in indexesOfLetra {
+					let letterIndexOnPreviousText : String
+					let letterIndexOnNextText : String
+					
+					let previousText = currentTextIndex - 1 >= 0 ? currentTextIndex - 1 : normalizedSubTexts.count - 1
+					if previousText == normalizedSubTexts.count - 1{
+						
+						if index == 0 { //First letter, first text, previous item is last letter of whole text: meaning last letter of the longest subtext
+							letterIndexOnPreviousText = "*"//normalizedSubTexts[longestTextIndex][normalizedSubTexts[longestTextIndex].count - 1]
+						}else{
+							letterIndexOnPreviousText = normalizedSubTexts[previousText][index-1]
+						}
+					}else{
+						letterIndexOnPreviousText = normalizedSubTexts[previousText][index]
+					}
+					
+					if currentTextIndex == longestTextIndex && index == normalizedSubTexts[longestTextIndex].count - 1 { //Last letter longest text next item is first letted of whole text: first letter of the first subtext
+						letterIndexOnNextText = "*"//normalizedSubTexts[0][0]
+					}else{
+						let nextText = currentTextIndex + 1 < normalizedSubTexts.count ? currentTextIndex + 1 : 0
+						letterIndexOnNextText = normalizedSubTexts[nextText][index]
+					}
+					
+					
+					ramaArbolPorLetra = letterIndexOnPreviousText + ramaArbolPorLetra + letterIndexOnNextText
+				}
+				arbolSubtextoCompleto += "\(ramaArbolPorLetra)\n"
+			}
+			
+			currentTextIndex += 1
+			arbolesTodosLosTextos += "[ T\(currentTextIndex): \(arbolSubtextoCompleto) ]\n"
+		}
+		return arbolesTodosLosTextos
+	}
+	
 }
