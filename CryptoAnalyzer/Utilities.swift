@@ -26,4 +26,13 @@ extension String {
 		
 		return indexes
 	}
+	func padLeft(totalWidth: Int) -> String {
+		let toPad = totalWidth - self.characters.count
+		if toPad < 1 {
+			return self
+		}
+		
+		return "".padding(toLength: toPad, withPad: " ", startingAt: 0) + self
+	}
+	
 }

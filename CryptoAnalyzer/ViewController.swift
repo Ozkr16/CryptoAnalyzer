@@ -63,8 +63,8 @@ NSTextFieldDelegate {
 		let trigramFrequency = calculateNgramFrequency(of: symbols, withNgramLength: 3)
 		let formatedTrigrams = formatFrequency(results: trigramFrequency, taking: 35)
 		
-		self.bigramasLabel.stringValue = "Los 20 Bigramas Más Frecuentes: \n\(formatedBigrams)"
-		self.trigramasLabel.stringValue = "Los 20 Trigramas Más Frecuentes: \n\(formatedTrigrams)"
+		self.bigramasLabel.stringValue = "20 Bigramas Más Frecuentes: \n\(formatedBigrams)"
+		self.trigramasLabel.stringValue = "20 Trigramas Más Frecuentes: \n\(formatedTrigrams)"
 		
 		let subtextos = divideTextInSubtext(texto: textField.stringValue, numeroTextos: 5)
 		let formattedSubtexts = formatSubtexts(subtextos: subtextos)
@@ -154,8 +154,8 @@ NSTextFieldDelegate {
 		var formateado: String = ""
 		var contador = 0
 		for sub in subtextos {
-			formateado += "T\(contador): \n\(sub) \n"
 			contador += 1
+			formateado += "T\(contador): \n\(sub) \n"
 		}
 		return formateado
 	}
@@ -177,7 +177,7 @@ NSTextFieldDelegate {
 		for tN in subtexts {
 			let freqSubN = calculateNgramFrequency(of: normalizedSubTexts[currentTextIndex], withNgramLength: 1).sorted(by: {$0.1 > $1.1})
 			var arbolSubtextoCompleto = ""
-			
+			let treeWidth = Int((freqSubN[0].1 * 2) + 3)
 			for (letra, _) in freqSubN {
 				let indexesOfLetra = tN.findIndexesOfAllOccurrences(of: letra)
 				var ramaArbolPorLetra = "-\(letra)-"
@@ -189,8 +189,9 @@ NSTextFieldDelegate {
 					let previousText = currentTextIndex - 1 >= 0 ? currentTextIndex - 1 : normalizedSubTexts.count - 1
 					if previousText == normalizedSubTexts.count - 1{
 						
-						if index == 0 { //First letter, first text, previous item is last letter of whole text: meaning last letter of the longest subtext
-							letterIndexOnPreviousText = "*"//normalizedSubTexts[longestTextIndex][normalizedSubTexts[longestTextIndex].count - 1]
+						//First letter, first text, previous item is last letter of whole text: meaning last letter of the longest subtext
+						if index == 0 {
+							letterIndexOnPreviousText = "*"
 						}else{
 							letterIndexOnPreviousText = normalizedSubTexts[previousText][index-1]
 						}
@@ -198,8 +199,9 @@ NSTextFieldDelegate {
 						letterIndexOnPreviousText = normalizedSubTexts[previousText][index]
 					}
 					
-					if currentTextIndex == longestTextIndex && index == normalizedSubTexts[longestTextIndex].count - 1 { //Last letter longest text next item is first letted of whole text: first letter of the first subtext
-						letterIndexOnNextText = "*"//normalizedSubTexts[0][0]
+					//Last letter longest text next item is first letted of whole text: first letter of the first subtext
+					if currentTextIndex == longestTextIndex && index == normalizedSubTexts[longestTextIndex].count - 1 {
+						letterIndexOnNextText = "*"
 					}else{
 						let nextText = currentTextIndex + 1 < normalizedSubTexts.count ? currentTextIndex + 1 : 0
 						letterIndexOnNextText = normalizedSubTexts[nextText][index]
@@ -208,7 +210,7 @@ NSTextFieldDelegate {
 					
 					ramaArbolPorLetra = letterIndexOnPreviousText + ramaArbolPorLetra + letterIndexOnNextText
 				}
-				arbolSubtextoCompleto += "\(ramaArbolPorLetra)\n"
+				arbolSubtextoCompleto += ramaArbolPorLetra.padLeft(totalWidth: treeWidth) + "\n"
 			}
 			
 			currentTextIndex += 1
